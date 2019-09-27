@@ -22,17 +22,12 @@ module.exports = function(req, res, next) {
       url: 'https://api.opencagedata.com/geocode/v1/json', 
       qs: options
       }, function(error, response, body) {
-        //For ideas about response and error processing see https://opencagedata.com/tutorials/geocode-in-nodejs
-        
-        //JSON.parse to get contents. Remember to look at the response's JSON format in open cage data
-        
-        /*Save the coordinates in req.results -> 
-          this information will be accessed by listings.server.model.js 
-          to add the coordinates to the listing request to be saved to the database.
+        if(error){
+        response.status(400).send(error);
+        }
 
-          Assumption: if we get a result we will take the coordinates from the first result returned
-        */
-        //  req.results = stores you coordinates
+        var data = JSON.parse(body);
+        req.results = data.results[0].geometry.location;
         next();
     });
   } else {

@@ -12,6 +12,7 @@ module.exports.init = function() {
   mongoose.connect(config.db.uri, { useNewUrlParser: true });
     mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
+    mongoose.set('useUnifiedTopology',true);
 
   //initialize app
   var app = express();
