@@ -23,7 +23,7 @@ module.exports = function(req, res, next) {
       qs: options
       }, function(error, response, body) {
         if(error){
-        response.status(400).send(error);
+        res.status(404).send(error);
         }
 
         var data = JSON.parse(body);
